@@ -1,9 +1,7 @@
 package com.services.ms.product.product.service.Controller;
 
 
-import com.services.ms.product.product.service.Modelo.dto.CategoryResponse;
-import com.services.ms.product.product.service.Modelo.dto.CreateProductRequest;
-import com.services.ms.product.product.service.Modelo.dto.ProductResponse;
+import com.services.ms.product.product.service.Modelo.dto.*;
 import com.services.ms.product.product.service.repository.ProductRepository;
 import com.services.ms.product.product.service.service.ProductService;
 
@@ -46,12 +44,17 @@ public class ControllerProduct {
 //          return ResponseEntity.created(URI.create("/api/products/" + productResponse.getId())).body(productResponse);
 //    }
 
-    @PostMapping
-    public ResponseEntity<ProductResponse> save(@Valid @RequestBody CreateProductRequest request) {
-        ProductResponse response = productService.save(request);
-        return ResponseEntity
-                .created(URI.create("/api/products/" + response.getId()))
-                .body(response);
+//    @PostMapping
+//    public ResponseEntity<ProductResponse> save(@Valid @RequestBody CreateProductRequest request) {
+//        ProductResponse response = productService.save(request);
+//        return ResponseEntity
+//                .created(URI.create("/api/products/" + response.getId()))
+//                .body(response);
+//    }
+
+    @PostMapping("User")
+    public UserResponseDTO adduser(@Valid @RequestBody CreatedUserResquestDTO resquest){
+         return   productService.addUser(resquest);
     }
 
 

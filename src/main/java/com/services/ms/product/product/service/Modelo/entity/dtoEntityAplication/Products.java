@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @Entity
@@ -24,14 +26,20 @@ public class Products {
     private  String name ;
 
     @Column(name = "price")
-    private Float price ;
+    private BigDecimal price ;
 
-    @Column(name = "category" , length = 255)
-    private  String category ;
+    @ManyToOne
+    @JoinColumn(name = "category")
+    private  Category  category ;
+
+    @Column(name = "description" , length = 255)
+    private  String description ;
 
     @Column(name = "certified" )
-    @Temporal(TemporalType.DATE)
     private Boolean certified ;
+
+    @Column(name = "status" )
+    private Boolean status ;
 
     @Column(name = "stock" , length = 255)
     private Integer stock ;

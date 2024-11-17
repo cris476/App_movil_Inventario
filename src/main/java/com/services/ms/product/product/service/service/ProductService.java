@@ -19,5 +19,7 @@ public interface ProductService {
 
     void deletedByid(Long id) ;
 
+    UserResponseDTO addUser(CreatedUserResquestDTO resquest);
+
 
 }
