@@ -28,6 +28,13 @@ public class ControllerProduct {
          return productService.findAll();
     }
 
+    @GetMapping("getAllUsers")
+    public  List<GetUserResponse> alluser(){
+         return productService.findAllUser();
+    }
+
+
+
     @GetMapping("/{id}")
     public  ProductResponse finById(@PathVariable Long id){
          return productService.findByid(id);
@@ -52,8 +59,8 @@ public class ControllerProduct {
 //                .body(response);
 //    }
 
-    @PostMapping("User")
-    public UserResponseDTO adduser(@Valid @RequestBody CreatedUserResquestDTO resquest){
+    @PostMapping("createUser")
+    public CreatedUserResponseDTO adduser(@Valid @RequestBody CreatedUserResquestDTO resquest){
          return   productService.addUser(resquest);
     }
 

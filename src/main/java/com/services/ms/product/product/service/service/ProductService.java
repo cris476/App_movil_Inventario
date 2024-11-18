@@ -11,6 +11,8 @@ public interface ProductService {
 
     List<ProductResponse> findAll();
 
+    List<GetUserResponse> findAllUser();
+
     List<ProductResponse> findAllByCategoryId(Long Categoryid);
 
     ProductResponse update(Long id , CreateProductRequest request);
@@ -19,7 +21,7 @@ public interface ProductService {
 
     void deletedByid(Long id) ;
 
-    UserResponseDTO addUser(CreatedUserResquestDTO resquest);
+    CreatedUserResponseDTO addUser(CreatedUserResquestDTO resquest);
 
 
 }

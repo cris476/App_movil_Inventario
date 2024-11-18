@@ -1,9 +1,10 @@
 package com.services.ms.product.product.service.mapper;
 
 
+import com.services.ms.product.product.service.Modelo.dto.CreatedUserResponseDTO;
+import com.services.ms.product.product.service.Modelo.dto.GetUserResponse;
 import com.services.ms.product.product.service.Modelo.dto.ProductResponse;
 import com.services.ms.product.product.service.Modelo.dto.UpdateUserResponseDTO;
-import com.services.ms.product.product.service.Modelo.dto.UserResponseDTO;
 import com.services.ms.product.product.service.Modelo.entity.dtoEntityAplication.Products;
 import com.services.ms.product.product.service.Modelo.entity.dtoEntityAplication.Users;
 import org.mapstruct.Mapper;
@@ -28,9 +29,16 @@ public interface UserMapper {
          return  product.getStatus() ? "PERFECTO" : "IMPERFECTO";
     }
 
+    @Mapping(target = "isApproved" , expression = "java(IsApproved(users))")
+    @Mapping(target = "block" , expression = "java(Block(users))")
+    GetUserResponse toUserResponse2(Users users);
 
-    UserResponseDTO toUserResponse(Users users);
+   default  int IsApproved(Users user){
+       return user.getIsApproved() ? 1 : 0 ;
+   }
 
-
+    default  int Block(Users user){
+        return user.getIsApproved() ? 1 : 0 ;
+    }
 
 }

@@ -6,6 +6,7 @@ import com.services.ms.product.product.service.Modelo.entity.dtoEntityAplication
 import com.services.ms.product.product.service.exceptions.CategoryNotFoundException;
 import com.services.ms.product.product.service.exceptions.ProductNotFoundException;
 import com.services.ms.product.product.service.mapper.ProductMapper;
+import com.services.ms.product.product.service.mapper.UserMapper;
 import com.services.ms.product.product.service.repository.CategoryRepository;
 import com.services.ms.product.product.service.repository.ProductRepository;
 import com.services.ms.product.product.service.repository.UserRepository;
@@ -29,6 +30,7 @@ public class ProductServiceImpl implements ProductService  {
     private  final ProductRepository productRepository;
     private  final UserRepository userRepository ;
     private  final ProductMapper productMapper;
+    private  final UserMapper userMapper ;
 
     @Override
     public ProductResponse findByid(Long id) {
@@ -71,6 +73,19 @@ public class ProductServiceImpl implements ProductService  {
         return productRepository.findAll().stream().map(productMapper::toProductResponse).collect(Collectors.toList());
     }
 
+    @Override
+    public List<GetUserResponse> findAllUser() {
+        return userRepository.findAll().stream().map(userMapper::toUserResponse2).collect(Collectors.toList()) ;
+    }
+
+//    @Override
+//    public List<GetUserResponse> findAllUser() {
+//        return userRepository.findAll().stream().map()
+//    }
+
+
+//    public List<Cre>
+
 //    @Override
 //    public List<ProductResponse> findAllByCategoryId(Long Categoryid) {
 //
@@ -95,22 +110,22 @@ public class ProductServiceImpl implements ProductService  {
     }
 
 
-    @Override
-    public ProductResponse update(Long id, CreateProductRequest request) {
-        return productRepository.findById(id)
-                .map(product -> categoryRepository
-                        .findById(request.getCategoryid())
-                        .map(category -> {
-                            product.setName(request.getName());
-                            product.setDescription(request.getDescription());
-                            product.setPrice(request.getPrice());
-                            product.setCategory(category);
-                            return productRepository.save(product);
-                        })
-                        .orElseThrow(CategoryNotFoundException::new))
-                .map(productMapper::toProductResponse)
-                .orElseThrow(ProductNotFoundException::new);
-    }
+//    @Override
+//    public ProductResponse update(Long id, CreateProductRequest request) {
+//        return productRepository.findById(id)
+//                .map(product -> categoryRepository
+//                        .findById(request.getCategoryid())
+//                        .map(category -> {
+//                            product.setName(request.getName());
+//                            product.setDescription(request.getDescription());
+//                            product.setPrice(request.getPrice());
+//                            product.setCategory(category);
+//                            return productRepository.save(product);
+//                        })
+//                        .orElseThrow(CategoryNotFoundException::new))
+//                .map(productMapper::toProductResponse)
+//                .orElseThrow(ProductNotFoundException::new);
+//    }
 
 
 
@@ -118,15 +133,15 @@ public class ProductServiceImpl implements ProductService  {
     public ProductResponse save(CreateProductRequest request) {
         // Buscar la categoría correspondiente al categoryid
 
-        Category category = categoryRepository.findById(request.getCategoryid())
+        Category category = categoryRepository.findById(request.)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
         Products productnew = new Products();
         productnew.setName(request.getName());
         productnew.setCategory(category);  // Asignar la categoría encontrada
-        productnew.setPrice(request.getPrice());
-        productnew.setDescription(request.getDescription());
-        productnew.setStatus(Boolean.TRUE);
+//        productnew.setPrice(request.getPrice());
+//        productnew.setDescription(request.getDescription());
+//        productnew.setStatus(Boolean.TRUE);
 
         Products savedProduct = productRepository.save(productnew);
 
@@ -150,27 +165,28 @@ public class ProductServiceImpl implements ProductService  {
 //    }
 
     @Override
-    public UserResponseDTO addUser(CreatedUserResquestDTO resquest) {
+    public CreatedUserResponseDTO addUser(CreatedUserResquestDTO resquest) {
         try {
             Users user = new Users();
             user.setName(resquest.getName());
             user.setPassword(resquest.getPassword());
             user.setPhone_info(resquest.getPhone_info());
             user.setAddress(resquest.getAddress());
-            user.setPhone_number(resquest.getPhoneNumber());
+            user.setPhone_number(resquest.getPhone_number());
+            user.setDate_of_account_creation(new Date());
             user.setPinCode(resquest.getPincod());
             user.setIsApproved(Boolean.FALSE);
             user.setBlock(Boolean.FALSE);
             user.setLevel(0);
+            user.setEmail(resquest.getEmail());
             userRepository.save(user);
-
-            UserResponseDTO userResponseDTO = new UserResponseDTO();
+            CreatedUserResponseDTO userResponseDTO = new CreatedUserResponseDTO();
             userResponseDTO.setStatus(Boolean.TRUE);
             userResponseDTO.setMessage("Usuario creado correctamente");
             return userResponseDTO;
         } catch (Exception e) {
 
-            UserResponseDTO userResponseDTO = new UserResponseDTO();
+            CreatedUserResponseDTO userResponseDTO = new CreatedUserResponseDTO();
             userResponseDTO.setStatus(Boolean.FALSE);
             userResponseDTO.setMessage("Usuario  no creado correctamente");
             return userResponseDTO;

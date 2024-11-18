@@ -10,11 +10,9 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
-public class UserResponseDTO {
+public class CreatedUserResponseDTO {
 
-      public  UserResponseDTO(){
-
-      }
+      public CreatedUserResponseDTO(){}
       private String message ;
       private  Boolean  status;
 

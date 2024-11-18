@@ -16,7 +16,7 @@ public class CreatedUserResquestDTO {
       private  String email ;
       private  String  phone_info ;
       private  String address ;
-      private  String phoneNumber ;
+      private  String phone_number ;
       private String pincod ;
 
 }
