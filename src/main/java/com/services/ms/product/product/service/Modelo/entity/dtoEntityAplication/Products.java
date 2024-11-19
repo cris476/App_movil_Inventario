@@ -19,14 +19,14 @@ public class Products {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
 
-    @Column(name = "products_id" , length = 255)
-    private  String products_id;
+//    @Column(name = "products_id" , length = 255)
+//    private  String products_id;
 
     @Column(name = "name" , length = 255)
     private  String name ;
 
     @Column(name = "price")
-    private BigDecimal price ;
+    private Double price ;
 
     @ManyToOne
     @JoinColumn(name = "category")

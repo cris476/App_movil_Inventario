@@ -59,6 +59,12 @@ public class ControllerProduct {
 //                .body(response);
 //    }
 
+
+    @PostMapping("createProduct")
+    public  CreatedUserResponseDTO  addProduct( @Valid @RequestBody  CreateProductRequest request){
+          return  productService.saveProduct(request);
+    }
+
     @PostMapping("createUser")
     public CreatedUserResponseDTO adduser(@Valid @RequestBody CreatedUserResquestDTO resquest){
          return   productService.addUser(resquest);

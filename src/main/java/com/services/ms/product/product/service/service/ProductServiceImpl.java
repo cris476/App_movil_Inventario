@@ -34,9 +34,10 @@ public class ProductServiceImpl implements ProductService  {
 
     @Override
     public ProductResponse findByid(Long id) {
-        return productRepository.findById(id)
-                .map(productMapper::toProductResponse)
-                .orElseThrow(ProductNotFoundException::new);
+        return  null ;
+//        return productRepository.findById(id)
+//                .map(productMapper::toProductResponse)
+//                .orElseThrow(ProductNotFoundException::new);
     }
 
 
@@ -70,7 +71,8 @@ public class ProductServiceImpl implements ProductService  {
 
     @Override
     public List<ProductResponse> findAll() {
-        return productRepository.findAll().stream().map(productMapper::toProductResponse).collect(Collectors.toList());
+        return  null ;
+//        return productRepository.findAll().stream().map(productMapper::toProductResponse).collect(Collectors.toList());
     }
 
     @Override
@@ -100,18 +102,20 @@ public class ProductServiceImpl implements ProductService  {
 
     @Override
     public List<ProductResponse> findAllByCategoryId(Long Categoryid) {
-        return categoryRepository.findById(Categoryid)
-                .map(productRepository::findAllByCategory)
-                .map(products -> products.stream()
-                        .map(productMapper::toProductResponse)
-                        .collect(Collectors.toList()))
-                .orElseThrow(CategoryNotFoundException::new);
+        return  null ;
+//        return categoryRepository.findById(Categoryid)
+//                .map(productRepository::findAllByCategory)
+//                .map(products -> products.stream()
+//                        .map(productMapper::toProductResponse)
+//                        .collect(Collectors.toList()))
+//                .orElseThrow(CategoryNotFoundException::new);
 
     }
 
 
-//    @Override
-//    public ProductResponse update(Long id, CreateProductRequest request) {
+    @Override
+    public ProductResponse update(Long id, CreateProductRequest request) {
+        return  null ;
 //        return productRepository.findById(id)
 //                .map(product -> categoryRepository
 //                        .findById(request.getCategoryid())
@@ -125,28 +129,39 @@ public class ProductServiceImpl implements ProductService  {
 //                        .orElseThrow(CategoryNotFoundException::new))
 //                .map(productMapper::toProductResponse)
 //                .orElseThrow(ProductNotFoundException::new);
-//    }
+    }
 
 
 
     @Override
-    public ProductResponse save(CreateProductRequest request) {
-        // Buscar la categoría correspondiente al categoryid
+    public CreatedUserResponseDTO saveProduct(CreateProductRequest request) {
 
-        Category category = categoryRepository.findById(request.)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+        try {
+            Category category = categoryRepository.findById(request.getCategory())
+                    .orElseThrow(() -> new RuntimeException("Category not found"));
+            Products productnew = new Products();
+            productnew.setName(request.getName());
+            productnew.setPrice(request.getPrice());
+            productnew.setCategory(category);
+            productnew.setCertified( request.getCertified() == 1 ? Boolean.TRUE : Boolean.FALSE );
+            productnew.setStatus(Boolean.TRUE);
+            productnew.setStock(request.getStock());
+            productnew.setDescription("");
+            Products savedProduct = productRepository.save(productnew);
+            productMapper.toProductResponse(savedProduct);
 
-        Products productnew = new Products();
-        productnew.setName(request.getName());
-        productnew.setCategory(category);  // Asignar la categoría encontrada
-//        productnew.setPrice(request.getPrice());
-//        productnew.setDescription(request.getDescription());
-//        productnew.setStatus(Boolean.TRUE);
+            CreatedUserResponseDTO userResponseDTO = new CreatedUserResponseDTO();
+            userResponseDTO.setStatus(Boolean.TRUE);
+            userResponseDTO.setMessage("Usuario creado correctamente");
+            return userResponseDTO;
+        }
+        catch (Exception e){
+            CreatedUserResponseDTO userResponseDTO = new CreatedUserResponseDTO();
+            userResponseDTO.setStatus(Boolean.FALSE);
+            userResponseDTO.setMessage("Usuario  no creado correctamente");
+            return userResponseDTO;
+        }
 
-        Products savedProduct = productRepository.save(productnew);
-
-        // Convertir el producto guardado en un DTO ProductResponse
-        return productMapper.toProductResponse(savedProduct);
     }
 
 

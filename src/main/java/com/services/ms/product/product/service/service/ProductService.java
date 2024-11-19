@@ -17,7 +17,7 @@ public interface ProductService {
 
     ProductResponse update(Long id , CreateProductRequest request);
 
-    ProductResponse save(CreateProductRequest request) ;
+    CreatedUserResponseDTO saveProduct(CreateProductRequest request) ;
 
     void deletedByid(Long id) ;
 

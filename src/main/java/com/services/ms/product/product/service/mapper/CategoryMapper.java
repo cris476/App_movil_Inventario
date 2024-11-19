@@ -10,6 +10,4 @@ public interface CategoryMapper {
 
     CategoryResponse  toCategoryResponse(Category category);
 
-
-
 }

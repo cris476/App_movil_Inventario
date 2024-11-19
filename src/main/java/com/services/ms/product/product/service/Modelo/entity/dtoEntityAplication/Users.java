@@ -53,5 +53,5 @@ public class Users {
 
     @Column(name = "pinCode" , length = 255)
     private String pinCode ;
-
+// mysql://root:BXpXMnQUpmPaFEPaKSGmRNDgiqQsTovH@autorack.proxy.rlwy.net:55040/railway
 }

@@ -15,9 +15,9 @@ import java.math.BigDecimal;
 public class CreateProductRequest {
 
     private String name;
-    private String price;
-    private String stock;
-    private Integer certified;
-    private String category;
+    private Double price;
+    private int stock;
+    private int certified;
+    private Long category;
 
 }
