@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/products")
+@RequestMapping("/api")
 public class ControllerProduct {
 
 
@@ -28,7 +28,7 @@ public class ControllerProduct {
          return productService.findAll();
     }
 
-    @GetMapping("getAllUsers")
+    @GetMapping("/getAllUsers")
     public  List<GetUserResponse> alluser(){
          return productService.findAllUser();
     }
@@ -60,12 +60,12 @@ public class ControllerProduct {
 //    }
 
 
-    @PostMapping()
+    @PostMapping("/products")
     public  CreatedUserResponseDTO  addProduct( @Valid @RequestBody  CreateProductRequest request){
           return  productService.saveProduct(request);
     }
 
-    @PostMapping("createUser")
+    @PostMapping("/createUser")
     public CreatedUserResponseDTO adduser(@Valid @RequestBody CreatedUserResquestDTO resquest){
          return   productService.addUser(resquest);
     }
