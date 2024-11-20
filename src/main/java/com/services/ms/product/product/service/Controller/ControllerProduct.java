@@ -60,7 +60,7 @@ public class ControllerProduct {
 //    }
 
 
-    @PostMapping("createProduct")
+
     public  CreatedUserResponseDTO  addProduct( @Valid @RequestBody  CreateProductRequest request){
           return  productService.saveProduct(request);
     }
